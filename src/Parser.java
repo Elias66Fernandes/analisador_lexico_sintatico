@@ -4,7 +4,7 @@
 public class Parser {
 
     private final Scanner scan;
-    private Token currentToken;;
+    private Token currentToken;
 
     public Parser(byte[] input) {
         scan = new Scanner(input);
