@@ -9,4 +9,16 @@ public class Scanner {
         this.input = input;
     }
 
+    private char peek () {
+        if (current < input.length)
+            return (char)input[current];
+        return '\0';
+    }
+
+    private void advance()  {
+        char ch = peek();
+        if (ch != '\0') {
+            current++;
+        }
+    }
 }
