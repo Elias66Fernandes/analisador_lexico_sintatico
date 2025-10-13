@@ -2,11 +2,20 @@
 
 public class Scanner {
 
-    private byte[] input;
+    private final byte[] input;
     private int current;
 
     public Scanner (byte[] input) {
         this.input = input;
+    }
+
+    private String number() {
+        int start = current ;
+        while (Character.isDigit(peek())) {
+            advance();
+        }
+
+        return new String(input, start, current-start);
     }
 
     private char peek () {
@@ -22,23 +31,21 @@ public class Scanner {
         }
     }
 
-    public char nextToken () {
+    public String nextToken () {
         char ch = peek();
-
-        if (Character.isDigit(ch)) {
+        if (ch == '0') {
             advance();
-            return ch;
-        }
+            return Character.toString(ch);
+        }  else if (Character.isDigit(ch))
+            return number();
 
-        switch (ch) {
-            case '+':
-            case '-':
+        return switch (ch) {
+            case '+', '-' -> {
                 advance();
-                return ch;
-            default:
-                break;
-        }
+                yield Character.toString(ch);
+            }
+            default -> throw new Error("lexical error");
+        };
 
-        return '\0';
     }
 }
