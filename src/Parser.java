@@ -20,7 +20,7 @@ public class Parser {
     }
 
     private void match(TokenType t) {
-        if (currentToken.type == t) {
+        if (currentToken.type() == t) {
             nextToken();
         }else {
             throw new Error("syntax error");
@@ -33,17 +33,17 @@ public class Parser {
     }
 
     void number () {
-        System.out.println("push " + currentToken.lexeme);
+        System.out.println("push " + currentToken.lexeme());
         match(TokenType.NUMBER);
     }
 
     void oper () {
-        if (currentToken.type == TokenType.PLUS) {
+        if (currentToken.type() == TokenType.PLUS) {
             match(TokenType.PLUS);
             number();
             System.out.println("add");
             oper();
-        } else if (currentToken.type == TokenType.MINUS) {
+        } else if (currentToken.type() == TokenType.MINUS) {
             match(TokenType.MINUS);
             number();
             System.out.println("sub");
