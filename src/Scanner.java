@@ -1,5 +1,3 @@
-
-
 public class Scanner {
 
     private final byte[] input;
@@ -33,12 +31,12 @@ public class Scanner {
     }
 
     private Token number() {
-        int start = current ;
+        int start = current;
         while (Character.isDigit(peek())) {
             advance();
         }
 
-        String n = new String(input, start, current-start)  ;
+        String n = new String(input, start, current - start);
         return new Token(TokenType.NUMBER, n);
     }
 
@@ -54,8 +52,13 @@ public class Scanner {
         int start = current;
         while (isAlphaNumeric(peek())) advance();
 
-        String id = new String(input, start, current-start);
-        return new Token(TokenType.IDENT, id);
+        String id = new String(input, start, current - start);
+
+        return switch (id) {
+            case "let" -> new Token(TokenType.LET, id);
+            case "print" -> new Token(TokenType.PRINT, id);
+            default -> new Token(TokenType.IDENT, id);
+        };
     }
 
     public Token nextToken () {
@@ -68,10 +71,10 @@ public class Scanner {
 
         if (ch == '0') {
             advance();
-            return new Token (TokenType.NUMBER, Character.toString(ch));
-        }  else if (Character.isDigit(ch))
+            return new Token(TokenType.NUMBER, Character.toString(ch));
+        } else if (Character.isDigit(ch)) {
             return number();
-
+        }
 
         return switch (ch) {
             case '+' -> {
@@ -81,6 +84,14 @@ public class Scanner {
             case '-' -> {
                 advance();
                 yield new Token(TokenType.MINUS, "-");
+            }
+            case '=' -> {
+                advance();
+                yield new Token(TokenType.EQ, "=");
+            }
+            case ';' -> {
+                advance();
+                yield new Token(TokenType.SEMICOLON, ";");
             }
             case '\0' -> new Token(TokenType.EOF, "EOF");
             default -> throw new Error("lexical error at " + ch);
