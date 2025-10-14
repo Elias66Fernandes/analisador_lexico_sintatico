@@ -3,6 +3,12 @@ public class Parser {
     private final Scanner scan;
     private Token currentToken;
 
+    private final StringBuilder output = new StringBuilder();
+
+    public String output() {
+        return output.toString();
+    }
+
     public Parser(byte[] input) {
         scan = new Scanner(input);
         currentToken = scan.nextToken();
@@ -49,7 +55,7 @@ public class Parser {
         match(TokenType.IDENT);
         match(TokenType.EQ);
         expr();
-        System.out.println("pop " + varName);
+        output.append("pop ").append(varName).append("\n");
         match(TokenType.SEMICOLON);
     }
 
@@ -57,7 +63,7 @@ public class Parser {
     void printStatement() {
         match(TokenType.PRINT);
         expr();
-        System.out.println("print");
+        output.append("print\n");
         match(TokenType.SEMICOLON);
     }
 
@@ -67,7 +73,7 @@ public class Parser {
     }
 
     void number() {
-        System.out.println("push " + currentToken.lexeme());
+        output.append("push ").append(currentToken.lexeme()).append("\n");
         match(TokenType.NUMBER);
     }
 
@@ -75,7 +81,7 @@ public class Parser {
         if (currentToken.type() == TokenType.NUMBER)
             number();
         else if (currentToken.type() == TokenType.IDENT) {
-            System.out.println("push " + currentToken.lexeme());
+            output.append("push ").append(currentToken.lexeme()).append("\n");
             match(TokenType.IDENT);
         } else
             throw new Error("syntax error: termo inválido");
@@ -85,13 +91,14 @@ public class Parser {
         if (currentToken.type() == TokenType.PLUS) {
             match(TokenType.PLUS);
             term();
-            System.out.println("add");
+            output.append("add\n");
             oper();
         } else if (currentToken.type() == TokenType.MINUS) {
             match(TokenType.MINUS);
             term();
-            System.out.println("sub");
+            output.append("sub\n");
             oper();
         }
     }
 }
+
