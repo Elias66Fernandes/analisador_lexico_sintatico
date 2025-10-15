@@ -10,7 +10,7 @@ O projeto pode ser executado através da classe principal `Main.java`.
 1.  **Pré-requisitos:** Certifique-se de ter o **JDK 21** instalado e configurado.
 2.  **Compilação:** Compile os arquivos Java.
     ```bash
-    javac Main.java Parser.java Scanner.java Interpretador.java TokenType.java Token.java Command.java
+    javac Main.java Parser.java Scanner.java Interpretador.java TokenType.java Token.java
     ```
 3.  **Execução:** Execute a classe `Main`.
     ```bash
@@ -27,8 +27,7 @@ O código de entrada está definido diretamente na classe `Main.java` e o progra
 | `Token.java` | Léxico (Record) | Implementa um `record` para representar um *token* (tipo e lexema). |
 | `Scanner.java` | Scanner | Responsável pela **Análise Léxica**. Converte a entrada de texto em uma sequência de *tokens*. |
 | `Parser.java` | Parser | Responsável pela **Análise Sintática** e **Geração de Código Intermediário**. Ele segue uma gramática definida para gerar comandos de máquina de pilha. |
-| `Command.java` | Interpretador | Definição de um `record` simples para os comandos da máquina de pilha (`ADD`, `SUB`, `PUSH`, `POP`, `PRINT`). |
-| `Interpretador.java` | Interpretador | Executa o código intermediário gerado pelo `Parser`. Implementa uma máquina de pilha com suporte a variáveis. |
+| `Interpretador.java` | Interpretador | Executa o código intermediário gerado pelo `Parser`. Implementa uma máquina de pilha com suporte a variáveis. Definição de um `record` simples para os comandos da máquina de pilha (`ADD`, `SUB`, `PUSH`, `POP`, `PRINT`). |
 | `Main.java` | Principal | Contém o código de exemplo de entrada, inicializa o `Parser` e o `Interpretador`, e coordena a execução. |
 
 ## ⚙️ Funcionalidades Implementadas
